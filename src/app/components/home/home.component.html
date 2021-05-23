@@ -1,0 +1,16 @@
+<app-nav-bar></app-nav-bar>
+<div class="container" fxLayout="column">
+    <div class="home-header home-card" fxFlexOffset="20px" fxLayout="column" fxLayoutGap="60px">
+        <div fxLayout="column" fxLayoutGap="40px">
+            <span>What Pokemon</span>
+            <span>are you looking for?</span>
+        </div>
+        <app-search></app-search>
+    </div>
+    <div class="home-content">
+        <div fxLayout="row wrap" fxLayoutGap="2%">
+            <mat-card class="{{link.color}} home-card" *ngFor="let link of links" (click)="redirectToRoute(link.route)"
+                fxFlex="48%" fxFlex.gt-md="30%">{{link.title}}</mat-card>
+        </div>
+    </div>
+</div>

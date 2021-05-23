@@ -1,0 +1,24 @@
+<div class="header-container" [ngClass]="{
+    'clear-background': !showSvgBanner,
+    'earth-background': checkPokemonType('grass'),
+    'fire-background': checkPokemonType('fire'),
+    'water-background': checkPokemonType('water'),
+    'normal-background': checkPokemonType('normal'),
+    'ground-background': checkPokemonType('bug'),
+    'lighting-background': checkPokemonType('lighting')
+    }">
+    <div class="contents">
+        <mat-toolbar>
+            <span class="navbar-spacer"></span>
+            <mat-icon (click)="back()" class="clear-icon">clear</mat-icon>
+        </mat-toolbar>
+        <div class="header" [ngClass]="{'clear-background': !showSvgBanner}">
+            <span>{{header}}</span>
+        </div>
+    </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" *ngIf="showSvgBanner">
+            <path fill="#fff" fill-opacity="1"
+                d="M0,224L40,229.3C80,235,160,245,240,250.7C320,256,400,256,480,245.3C560,235,640,213,720,213.3C800,213,880,235,960,224C1040,213,1120,171,1200,149.3C1280,128,1360,128,1400,128L1440,128L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z">
+            </path>
+        </svg>
+</div>

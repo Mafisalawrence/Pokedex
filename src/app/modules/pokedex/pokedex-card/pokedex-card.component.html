@@ -1,0 +1,21 @@
+<mat-card [ngClass]="{
+    'card-earth': checkPokemonType('grass'),
+    'card-fire': checkPokemonType('fire'),
+    'card-water': checkPokemonType('water'),
+    'card-normal': checkPokemonType('normal'),
+    'card-ground': checkPokemonType('bug'),
+    'card-lighting': checkPokemonType('lighting')
+  }" (click)="navigateToPokemonDetails(pokemon.name)">
+  <div fxLayout="row wrap" fxLayoutGap="20px">
+       <div fxLayout="column wrap">
+           <mat-chip>{{ pokemon.name }}</mat-chip>
+           <mat-chip-list  fxFlexOffset="10px">
+             <mat-chip *ngFor="let item of pokemon.types">
+               {{ item.type.name }}
+             </mat-chip>
+           </mat-chip-list>
+       </div>
+
+    <img src="{{ pokemon.sprites.front_shiny }}"/>
+  </div>
+</mat-card>

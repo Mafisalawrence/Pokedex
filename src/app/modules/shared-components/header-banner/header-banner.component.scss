@@ -1,0 +1,55 @@
+@import "../../../../variables";
+.mat-toolbar {
+  background: #fff;
+  color: #000;
+  padding-right: 30px;
+}
+.contents {
+  padding: 40px;
+}
+.clear-icon {
+  color: #000;
+  font-size: 35px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.header-container {
+  background: lightblue;
+  color: #000;
+  overflow: hidden;
+}
+.header-container > svg {
+  display: block;
+}
+span {
+  font-size: calc(5px + 4vw);
+  font-weight: bold;
+}
+.white-text {
+  color: #fff;
+}
+.clear-background {
+  background-color: #fff;
+  color: #000;
+}
+.earth-background {
+  @extend .white-text;
+  background-color: $earth;
+}
+.water-background {
+  @extend .white-text;
+  background-color: $water;
+}
+.lighting-background {
+  @extend .white-text;
+  background-color: $lighting;
+}
+.fire-background {
+  @extend .white-text;
+  background-color: $fire;
+}
+.ground-background {
+  @extend .white-text;
+  background-color: $ground;
+}
