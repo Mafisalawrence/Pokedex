@@ -2,8 +2,14 @@
 <div class="contents" fxLayout="column" fxLayoutGap="5px">
  <app-search [list]="pokemonList" (selectedValue)="setFilterListValue($event)" fxFlex="20%"></app-search>
   <div class="content" fxLayout="row wrap" fxLayoutGap="2%">
-    <div  *ngFor="let pokemonItem of pokemonList | listFilter: selectedFilterValue" fxFlex.gt-md="30%" fxFlex.gt-xs="48%">
+    <div  *ngFor="let pokemonItem of pokemonList | async | listFilter: selectedFilterValue" fxFlex.gt-md="12.5%" fxFlex.gt-xs="48%">
           <app-pokedex-card [pokemon]=pokemonItem></app-pokedex-card>
     </div>
   </div>
+  <mat-paginator [length]="length"
+               [pageSize]="pageSize"
+               [hidePageSize] ="true"
+               [pageSizeOptions]="pageSizeOptions"
+               (page)="pageChangeEvent($event)">
+</mat-paginator>
 </div>

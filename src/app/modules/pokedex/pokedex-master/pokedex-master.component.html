@@ -1,2 +1,6 @@
-<app-pokedex-list [pokemonList]="pokemonList"></app-pokedex-list>
+<app-pokedex-list
+[pokemonList]="pokemonList"
+[pageCount] = "count"
+(pokemonListEmitter)="getNext($event)"
+></app-pokedex-list>
 

@@ -14,18 +14,6 @@ export class PokedexDetailsComponent implements OnInit {
 
   constructor(private ativatedRoute: ActivatedRoute, private pokedexService: PokedexService) { }
 
-  ngOnInit(): void {
-    this.ativatedRoute.queryParams.pipe(
-      switchMap(queryResult => {
-        return this.pokedexService.pokemonData.pipe(
-          map(res => ({name: queryResult.name, pokemon: res}))
-        );
-      }
-    ))
-    .subscribe(res => {
-      this.selectedPokemonName = res.name;
-      this.pokemon = res.pokemon;
-    });
-  }
+  ngOnInit(): void {}
 
 }

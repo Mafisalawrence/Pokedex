@@ -2,24 +2,35 @@ import { Injectable } from '@angular/core';
 import { RepositoryService } from './repository.service';
 import { PokemonStruc } from '../models/pokemonStruc.model';
 import { Pokemon } from '../models/pokemon.model';
-import { switchMap, map, shareReplay } from 'rxjs/operators';
 import { forkJoin, Observable } from 'rxjs';
 import { PokedexEndPoints } from '../enums/EndPoints.enum';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class PokedexService {
-    pokemonData: Observable<Pokemon[]>;
-    constructor(private repositoryService: RepositoryService) {
-        this.getPokemon();
-     }
+  //pokemonData: Observable<PokemonStruc>;
+  currentPokemonStruc: Observable<PokemonStruc>;
 
-    getPokemon(): void{
-    this.pokemonData = this.repositoryService.getData<PokemonStruc>(`${PokedexEndPoints.Pokemon}?limit=${20}`)
-        .pipe(
-            map(res => res.results.map(r => this.repositoryService.getData<Pokemon>(r.url))),
-            switchMap(x => forkJoin(x))
-        ).pipe(shareReplay(1));
-}
+  constructor(private repositoryService: RepositoryService) {
+    this.getPokemonStruc(PokedexEndPoints.DefaultPokemon);
+  }
+  getPokemonStruc(url:string): void {
+    this.currentPokemonStruc = this.repositoryService.getData<PokemonStruc>(
+      `${url}`
+    );
+  }
+  getPokemonData(url:string){
+    return this.repositoryService.getData<Pokemon>(url);
+  }
+  getNextPokemonData(isnext:boolean){
+   return this.currentPokemonStruc.pipe(
+      map(r => {return isnext ? r.next: r.previous}),
+      switchMap(x => {
+        this.currentPokemonStruc = this.repositoryService.getData<PokemonStruc>(x)
+        return this.currentPokemonStruc
+      })
+   )
+  }
 }

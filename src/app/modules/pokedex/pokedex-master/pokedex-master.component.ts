@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RepositoryService } from 'src/app/services/repository.service';
-import { PokedexEndPoints } from 'src/app/enums/EndPoints.enum';
+import { forkJoin, Observable, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { PokemonStruc } from 'src/app/models/pokemonStruc.model';
-import { forkJoin } from 'rxjs';
 import { Pokemon } from 'src/app/models/pokemon.model';
 import { PokedexService } from 'src/app/services/pokedex.service';
 
@@ -14,13 +11,31 @@ import { PokedexService } from 'src/app/services/pokedex.service';
 })
 export class PokedexMasterComponent implements OnInit {
 
-  pokemonList: Pokemon[];
+  pokemonList: Observable<Pokemon[]>;
+  count:number;
+  subscription: Subscription;
   constructor(private pokedexService: PokedexService) { }
 
   ngOnInit(): void {
     this.loadInitialPokemon();
   }
   loadInitialPokemon(): void{
-    this.pokedexService.pokemonData.subscribe(res => this.pokemonList = res);
+     this.pokemonList = this.pokedexService.currentPokemonStruc
+    .pipe(
+       map(res =>{
+         this.count = res.count
+        return res.results.map(r => this.pokedexService.getPokemonData(r.url))
+       } ),
+      switchMap(x => forkJoin(x))
+    )
+  }
+  getNext(isNext:boolean){
+  //   this.pokedexService.getNextPokemonData(isNext).pipe(
+  //     map(res => res.results.map(r => this.pokedexService.getPokemonData(r.url))),
+  //    switchMap(x => forkJoin(x))
+  //  ).subscribe(res => this.pokemonList= res)
+  }
+  ngOnDestroy(){
+   this.subscription.unsubscribe();
   }
 }
