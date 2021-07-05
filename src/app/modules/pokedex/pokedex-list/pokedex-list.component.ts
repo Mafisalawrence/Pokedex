@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ɵConsole, SimpleChanges, Output, EventEmitte
 import { Pokemon } from 'src/app/models/pokemon.model';
 import {PageEvent} from '@angular/material/paginator';
 import { Observable } from 'rxjs';
+import { ItemListPaging } from 'src/app/models/item-list-paging';
 
 
 @Component({
@@ -11,9 +12,9 @@ import { Observable } from 'rxjs';
 })
 export class PokedexListComponent implements OnInit {
 
-  @Input() pokemonList: Observable<Pokemon[]>;
+  @Input() pokemonListObservable: Observable<Pokemon[]>;
   @Input() pageCount: number;
-  @Output() pokemonListEmitter = new EventEmitter<boolean>();
+  @Output() pokemonListEmitter = new EventEmitter<ItemListPaging>();
   selectedFilterValue: string;
   length : number;
   pageSize = 10;
@@ -34,8 +35,8 @@ export class PokedexListComponent implements OnInit {
     this.selectedFilterValue = selectedValue;
   }
   pageChangeEvent(event:PageEvent){
-    var isnext = event.pageIndex > this.currentIndex;
-    this.pokemonListEmitter.emit(isnext)
+    const paging : ItemListPaging = {index : event.pageIndex , isnext : event.pageIndex > this.currentIndex}
+    this.pokemonListEmitter.emit(paging)
     this.currentIndex = event.pageIndex
   }
   trackByFn(item) {

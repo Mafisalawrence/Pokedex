@@ -24,12 +24,12 @@ export class SearchComponent implements OnInit, OnChanges {
     });
   }
   ngOnChanges(changes: SimpleChanges): void{
-    if (changes.list && this.list){
-      this.filteredList = this.searchForm.controls.search.valueChanges.pipe(
-        startWith(''),
-        map(value => this.applyFilter(value))
-      );
-    }
+    // if (changes.list && this.list){
+    //   this.filteredList = this.searchForm.controls.search.valueChanges.pipe(
+    //     startWith(''),
+    //     map(value => this.applyFilter(value))
+    //   );
+    // }
   }
   applyFilter(value: string): string[]{
     const filterValue = value.toLocaleLowerCase();

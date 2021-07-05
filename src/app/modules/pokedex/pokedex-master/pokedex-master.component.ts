@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { forkJoin, Observable, Subscription } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { ItemListPaging } from 'src/app/models/item-list-paging';
 import { Pokemon } from 'src/app/models/pokemon.model';
 import { PokedexService } from 'src/app/services/pokedex.service';
 
@@ -11,31 +11,20 @@ import { PokedexService } from 'src/app/services/pokedex.service';
 })
 export class PokedexMasterComponent implements OnInit {
 
-  pokemonList: Observable<Pokemon[]>;
+  pokemonListObservable: Observable<Pokemon[]>;
   count:number;
   subscription: Subscription;
   constructor(private pokedexService: PokedexService) { }
 
   ngOnInit(): void {
-    this.loadInitialPokemon();
+    const intialListPaging :ItemListPaging = {index : 0 , isnext : false }
+    this.getPokemonList(intialListPaging);
+    this.getPokemonCount();
   }
-  loadInitialPokemon(): void{
-     this.pokemonList = this.pokedexService.currentPokemonStruc
-    .pipe(
-       map(res =>{
-         this.count = res.count
-        return res.results.map(r => this.pokedexService.getPokemonData(r.url))
-       } ),
-      switchMap(x => forkJoin(x))
-    )
+  getPokemonList(paging:ItemListPaging): void{
+     this.pokemonListObservable = this.pokedexService.getPokemonData(paging.index,paging.isnext);
   }
-  getNext(isNext:boolean){
-  //   this.pokedexService.getNextPokemonData(isNext).pipe(
-  //     map(res => res.results.map(r => this.pokedexService.getPokemonData(r.url))),
-  //    switchMap(x => forkJoin(x))
-  //  ).subscribe(res => this.pokemonList= res)
-  }
-  ngOnDestroy(){
-   this.subscription.unsubscribe();
+  getPokemonCount():void{
+     this.pokedexService.getPokemonCount().subscribe(r => this.count = r)
   }
 }
