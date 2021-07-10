@@ -1,11 +1,8 @@
-<mat-card [ngClass]="{
-    'card-earth': checkPokemonType('grass'),
-    'card-fire': checkPokemonType('fire'),
-    'card-water': checkPokemonType('water'),
-    'card-normal': checkPokemonType('normal'),
-    'card-ground': checkPokemonType('bug'),
-    'card-lighting': checkPokemonType('lighting')
-  }" (click)="navigateToPokemonDetails(pokemon.name)">
+
+<p backgroundcolor> test</p>
+<mat-card
+
+(click)="navigateToPokemonDetails(pokemon.name)">
   <div fxLayout="row wrap">
   <h2>{{ pokemon.name }}</h2>
     <div fxLayout="row wrap" fxFlex="100" fxLayoutGap="25px">

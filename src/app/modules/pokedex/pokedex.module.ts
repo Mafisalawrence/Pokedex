@@ -9,6 +9,7 @@ import { PokedexCardComponent } from './pokedex-card/pokedex-card.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedComponentsModule } from '../shared-components/shared-components.module';
 import { ListFilterPipe } from 'src/app/functions/list-filter.pipe';
+import { BackgroundColorDirective } from 'src/app/directive/background-color.directive';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ListFilterPipe } from 'src/app/functions/list-filter.pipe';
     PokedexListComponent,
     PokedexDetailsComponent,
     PokedexCardComponent,
-    ListFilterPipe
+    ListFilterPipe,
+    BackgroundColorDirective
   ],
   imports: [
     CommonModule,

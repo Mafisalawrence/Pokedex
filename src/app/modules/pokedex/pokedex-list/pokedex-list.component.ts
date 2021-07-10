@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ɵConsole, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Pokemon } from 'src/app/models/pokemon.model';
 import {PageEvent} from '@angular/material/paginator';
 import { Observable } from 'rxjs';

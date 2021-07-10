@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import {Location} from '@angular/common';
 import { Pokemon } from 'src/app/models/pokemon.model';
 
@@ -15,13 +15,22 @@ export class HeaderBannerComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  ngOnChange(changes: SimpleChanges){
+    console.log(changes);
+    if (changes.pokemon) {
+      console.log(this.pokemon);
+    }
+   }
+
   back(): void{
     this.location.back();
   }
-  checkPokemonType = (type: string) => {
-    if (this.pokemon && this.pokemon.types) {
-        console.log(this.pokemon);
-        return this.pokemon.types.map(x => x.type.name).includes(type);
-      }
-     }
+  getBackGroundColor(): void {
+    //  'earth-background': checkPokemonType('grass'),
+    // 'fire-background': checkPokemonType('fire'),
+    // 'water-background': checkPokemonType('water'),
+    // 'normal-background': checkPokemonType('normal'),
+    // 'ground-background': checkPokemonType('bug'),
+    // 'lighting-background': checkPokemonType('lighting')
+    }
 }

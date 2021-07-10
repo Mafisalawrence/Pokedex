@@ -1,15 +1,17 @@
-<app-header-banner [header]="'Pokedex'" [showSvgBanner]="false"></app-header-banner>
-<div class="contents" fxLayout="column" fxLayoutGap="5px">
- <app-search [list]="pokemonListObservable" (selectedValue)="setFilterListValue($event)" fxFlex="20%"></app-search>
-  <div class="content" fxLayout="row wrap" fxLayoutGap="2%">
-    <div  *ngFor="let pokemonItem of pokemonListObservable | async | listFilter: selectedFilterValue" fxFlex.gt-md="16%" fxFlex.gt-xs="48%">
-          <app-pokedex-card [pokemon]=pokemonItem></app-pokedex-card>
-    </div>
+<div fxLayout="column wrap" fxLayoutGap="2%">
+  <div>
+    <app-header-banner [header]="'Pokedex'" [showSvgBanner]="false"></app-header-banner>
   </div>
-  <mat-paginator [length]="length"
-               [pageSize]="pageSize"
-               [hidePageSize] ="true"
-               [pageSizeOptions]="pageSizeOptions"
-               (page)="pageChangeEvent($event)">
-</mat-paginator>
+  <div class="contents" fxLayout="column wrap" fxLayoutGap="5px">
+    <app-search [list]="pokemonListObservable" (selectedValue)="setFilterListValue($event)" fxFlex="20%"></app-search>
+    <div class="content" fxLayout="row wrap" fxLayoutGap="2%">
+      <div *ngFor="let pokemonItem of pokemonListObservable | async | listFilter: selectedFilterValue"
+        fxFlex.gt-md="16%" fxFlex.gt-xs="48%">
+        <app-pokedex-card [pokemon]=pokemonItem></app-pokedex-card>
+      </div>
+    </div>
+    <mat-paginator [length]="length" [pageSize]="pageSize" [hidePageSize]="true" [pageSizeOptions]="pageSizeOptions"
+      (page)="pageChangeEvent($event)">
+    </mat-paginator>
+  </div>
 </div>
