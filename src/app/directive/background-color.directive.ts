@@ -1,12 +1,32 @@
-import { AfterViewInit, Directive, ElementRef, Input,Renderer2  } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Types } from '../models/pokemon.model';
 
 @Directive({ selector: '[backgroundcolor]' })
-export class BackgroundColorDirective  {
-  // @Input() type: string;
-  constructor(elRef: ElementRef) {
-    console.log(elRef)
-    elRef.nativeElement.style.color = '#00cc66';
-    elRef.nativeElement.style.backgroundColor = '#ccccff';
-    elRef.nativeElement.style.fontSize = '20px';
- }
+export class BackgroundColorDirective implements OnInit {
+  @Input() types: Types[];
+  constructor(private elRef: ElementRef) {}
+
+  ngOnInit() {
+    var primaryType = this.types[0].type.name;
+    this.elRef.nativeElement.style.backgroundColor =
+      this.getBackGroundColor(primaryType);
+  }
+  getBackGroundColor(type: string) {
+    switch (type) {
+      case 'grass':
+        return '#52c0a8';
+      case 'fire':
+        return '#f57b66';
+      case 'water':
+        return '#5dacff';
+      case 'normal':
+        return '#7c4d8f';
+      case 'bug':
+        return '#b2716a';
+      case 'lightning':
+        return '#ffcb4c';
+      default:
+        return '#fff';
+    }
+  }
 }

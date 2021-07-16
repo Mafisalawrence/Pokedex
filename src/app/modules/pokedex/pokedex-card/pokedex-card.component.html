@@ -1,7 +1,5 @@
-
-<p backgroundcolor> test</p>
-<mat-card
-
+<mat-card class="card"
+backgroundcolor [types] = "pokemon.types"
 (click)="navigateToPokemonDetails(pokemon.name)">
   <div fxLayout="row wrap">
   <h2>{{ pokemon.name }}</h2>
