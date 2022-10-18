@@ -7,7 +7,7 @@ import { PokedexRoutingModule } from './pokedex-routing.module';
 import { MaterialDesignModule } from '../material-design/material;-design.module';
 import { PokedexCardComponent } from './pokedex-card/pokedex-card.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { SharedComponentsModule } from '../shared-components/shared-components.module';
+import { SharedComponentsModule } from '../../shared/components/shared-components.module';
 import { ListFilterPipe } from 'src/app/functions/list-filter.pipe';
 
 @NgModule({
